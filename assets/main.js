@@ -24,7 +24,8 @@ spotifyApi.setAccessToken('');
 let token = spotifyApi.getAccessToken();
 console.log(token);
 
-token = getUrlParameter('access_token')
+//token = getUrlParameter('access_token')
+token = window.location.hash
 console.log(token + " success")
 spotifyApi.setAccessToken(token)
 
