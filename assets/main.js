@@ -1,9 +1,4 @@
-const spotifyApi = new SpotifyWebApi({
-  clientId: 'b1aa5dbffa494726880c00c395523fe6',
-  clientSecret: '1b4e25fe08b24895a843327bb35688c8',
-  redirectUri: 'localhost:8000',
-});
-
+const spotifyApi = new SpotifyWebApi()
 // Get Elvis' albums
 spotifyApi.getArtistAlbums('43ZHCT0cAZBISjO8DG9PnE')
   .then(function(data) {
