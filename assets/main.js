@@ -15,7 +15,7 @@ let token = jQuery.param('access_token');
 console.log(token);
 
 if(token==""){
-window.location = "https://accounts.spotify.com/authorize?client_id=b1aa5dbffa494726880c00c395523fe6&redirect_uri=https://howell-info.us/projects/spotify-library2playlist/index.html&response_type=token"
+//window.location = "https://accounts.spotify.com/authorize?client_id=b1aa5dbffa494726880c00c395523fe6&redirect_uri=https://howell-info.us/projects/spotify-library2playlist/index.html&response_type=token"
 }
 else{
     console.log(token + " success")
