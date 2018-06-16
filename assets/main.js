@@ -59,9 +59,9 @@ async function getSavedTracks(limit, offset) {
             }).then(function (data2) {
                 console.log('User Tracks', data2); //later calls
             })
-            
-            return result;
         }
+        
+                    return result;
     })
     //console.log(result)
 }
