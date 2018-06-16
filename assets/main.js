@@ -41,49 +41,51 @@ async function getSavedTracksWrapper(limit, offset) {
 
 async function getSavedTracks(limit, offset) {
     let result = spotifyApi.getMySavedTracks({
-            "limit": limit,
-            "offset": offset
-        }).then(function (data) {
-                console.log('User Tracks', data); //first call
-                /*
-                if ((offset + limit) < (data.total)) {
-                   //There are more tracks
-                    
-                }*/
+        "limit": limit,
+        "offset": offset
+    }).then(function (data) {
+        console.log('User Tracks', data); //first call
+        /*
+        if ((offset + limit) < (data.total)) {
+           //There are more tracks
+            
+        }*/
 
-                while ((offset + limit) < (data.total)) {
-                    spotifyApi.getMySavedTracks({
-                            "limit": limit,
-                            "offset": offset
-                    }).then(function(data2){
-                        console.log('User Tracks', data2); //later calls
-                    })
+        while ((offset + limit) < (data.total)) {
+            spotifyApi.getMySavedTracks({
+                "limit": limit,
+                "offset": offset
+            }).then(function (data2) {
+                console.log('User Tracks', data2); //later calls
+            })
+        }
+    })
+    
+    return result;
+}
 
-                return result;
-            }
+async function getUserIDWrapper() {
+    var userID = null
+    let result = spotifyApi.getMe().then(function (data) {
+        console.log('User Data', data);
+        userID = data.id;
+        console.log('UserID', userID);
+    }, function (err) {
+        console.error(err)
+    })
 
-            async function getUserIDWrapper() {
-                var userID = null
-                let result = spotifyApi.getMe().then(function (data) {
-                    console.log('User Data', data);
-                    userID = data.id;
-                    console.log('UserID', userID);
-                }, function (err) {
-                    console.error(err)
-                })
+    return result;
+}
 
-                return result;
-            }
-
-            async function getUserInformationAndLibrary() {
-                //let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved. Convert to for loop?
-                let result1 = await getSavedTracks(50, 0)
-                let result2 = await getUserIDWrapper();
-                return result2;
-            }
+async function getUserInformationAndLibrary() {
+    //let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved. Convert to for loop?
+    let result1 = await getSavedTracks(50, 0)
+    let result2 = await getUserIDWrapper();
+    return result2;
+}
 
 
 
-            getUserInformationAndLibrary().then(function () {
-                console.log("Did the things");
-            });
+getUserInformationAndLibrary().then(function () {
+    console.log("Did the things");
+});
