@@ -34,9 +34,7 @@ async function getSavedTracksWrapper(limit, offset) {
         });
 }
 
-getSavedTracksWrapper(50, 0).then(function(){
-    console.log("Finished getting tracks");
-})
+getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
 
 var userID = null
 spotifyApi.getMe().then(function (data) {
