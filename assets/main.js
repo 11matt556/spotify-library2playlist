@@ -26,7 +26,7 @@ async function getSavedTracksWrapper(limit, offset) {
         .then(function (data) {
             console.log('User Tracks', data);
             if ((offset + limit) < (data.total)) {
-                getSavedTracksNext(limit, (offset + limit))
+                getSavedTracksWrapper(limit, (offset + limit))
             }
 
         }, function (err) {
