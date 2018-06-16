@@ -55,7 +55,6 @@ async function getSavedTracks(limit, offset) {
                     spotifyApi.getMySavedTracks({
                             "limit": limit,
                             "offset": offset
-                        }
                     }).then(function(data2){
                         console.log('User Tracks', data2); //later calls
                     })
