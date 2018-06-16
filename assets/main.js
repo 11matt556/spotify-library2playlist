@@ -25,7 +25,7 @@ spotifyApi.getUserPlaylists()  // note that we don't pass a user id
     console.error(err);
   });
 
-spotifyApi.getMySavedTracks({'limit:50'})
+spotifyApi.getMySavedTracks({"limit":50})
     .then(function(data) {
     console.log('User Tracks', data);
   }, function(err) {
