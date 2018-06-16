@@ -61,7 +61,7 @@ async function getSavedTracks(limit, offset) {
             })
         }
     })
-    
+    console.log(result)
     return result;
 }
 
