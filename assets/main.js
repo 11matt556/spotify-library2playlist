@@ -19,7 +19,7 @@ if (token) {
 let offset = 0;
 
 async function getSavedTracksWrapper(limit, offset) {
-    spotifyApi.getMySavedTracks({
+    let result = spotifyApi.getMySavedTracks({
             "limit": limit,
             "offset": offset
         })
@@ -35,25 +35,31 @@ async function getSavedTracksWrapper(limit, offset) {
         }, function (err) {
             console.error(err);
         });
-}
 
-async function getUserInformationAndLibrary() {
-let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
-let result2 = await getUserIDWrapper();
-    return result2;
+    return result;
 }
 
 async function getUserIDWrapper() {
     var userID = null
-    spotifyApi.getMe().then(function (data) {
+    let result = spotifyApi.getMe().then(function (data) {
         console.log('User Data', data);
         userID = data.id;
         console.log('UserID', userID);
     }, function (err) {
         console.error(err)
     })
+
+    return result;
 }
 
-getUserInformationAndLibrary().then(function(){
+async function getUserInformationAndLibrary() {
+    let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved. Convert to for loop?
+    let result2 = await getUserIDWrapper();
+    return result2;
+}
+
+
+
+getUserInformationAndLibrary().then(function () {
     console.log("Did the things");
 });
