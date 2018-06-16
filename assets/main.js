@@ -52,6 +52,7 @@ async function getSavedTracks(limit, offset) {
         }*/
 
         while ((offset + limit) < (data.total)) {
+            offset = offset + limit;
             spotifyApi.getMySavedTracks({
                 "limit": limit,
                 "offset": offset
