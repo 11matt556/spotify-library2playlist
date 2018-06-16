@@ -8,26 +8,28 @@ const spotifyApi = new SpotifyWebApi()
 
 token = window.location.hash
 token = token.substring(14) //Trim off "#access_token="
-if(token){
+if (token) {
     console.log(token + " success")
     spotifyApi.setAccessToken(token)
-}
-
-else{
+} else {
     //TODO: Prompt user to auth
     console.log("Please auth")
 }
 
-spotifyApi.getUserPlaylists()  // note that we don't pass a user id
-  .then(function(data) {
-    console.log('User playlists', data);
-  }, function(err) {
-    console.error(err);
-  });
+let offset = 0;
 
-spotifyApi.getMySavedTracks({"limit":50})
-    .then(function(data) {
-    console.log('User Tracks', data);
-  }, function(err) {
-    console.error(err);
-  });
+async function getSavedTracksNext(limit,offset) {
+    spotifyApi.getMySavedTracks({
+            "limit": limit,
+            "offset": offset
+        })
+        .then(function (data) {
+            console.log('User Tracks', data);
+            if( (offset + limit) < (data.total) ){
+                getSavedTracksNext(limit,(offset+limit)).then(function(data))
+            }
+
+        }, function (err) {
+            console.error(err);
+        });
+}
