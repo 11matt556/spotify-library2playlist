@@ -18,15 +18,15 @@ if (token) {
 
 let offset = 0;
 
-async function getSavedTracksNext(limit,offset) {
+async function getSavedTracksWrapper(limit, offset) {
     spotifyApi.getMySavedTracks({
             "limit": limit,
             "offset": offset
         })
         .then(function (data) {
             console.log('User Tracks', data);
-            if( (offset + limit) < (data.total) ){
-                getSavedTracksNext(limit,(offset+limit))
+            if ((offset + limit) < (data.total)) {
+                getSavedTracksNext(limit, (offset + limit))
             }
 
         }, function (err) {
@@ -34,4 +34,7 @@ async function getSavedTracksNext(limit,offset) {
         });
 }
 
-getSavedTracksNext(50,0);
+getSavedTracksWrapper(50, 0);
+
+let user = spotifyApi.getMe();
+console.log(user);
