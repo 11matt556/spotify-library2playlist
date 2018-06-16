@@ -44,15 +44,8 @@ async function getSavedTracks(limit, offset) {
         "limit": limit,
         "offset": offset
     }).then(function (data) {
-        if ((offset + limit) < (data.total)) { //There are more tracks
-            offset = offset + limit;
-            spotifyApi.getMySavedTracks({
-                "limit": limit,
-                "offset": offset
-            }).then(function (data2) {
-                console.log('User Tracks', data2)
-                //Inner data
-            })
+        if ((offset + limit) < (data.total)) { 
+            //There are more tracks
         }
         console.log('User Tracks', data); //first call
     })
