@@ -38,8 +38,8 @@ async function getSavedTracksWrapper(limit, offset) {
 }
 
 async function getUserInformationAndLibrary() {
-    getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
-    getUserIDWrapper();
+    await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
+    await getUserIDWrapper();
 }
 
 async function getUserIDWrapper() {
