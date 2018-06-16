@@ -36,5 +36,8 @@ async function getSavedTracksWrapper(limit, offset) {
 
 getSavedTracksWrapper(50, 0);
 
-let user = spotifyApi.getMe();
-console.log(user);
+spotifyApi.getMe().then(function (data) {
+    console.log('UserID', data);
+}, function (err) {
+    console.error(err)
+})
