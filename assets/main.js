@@ -44,12 +44,20 @@ async function getSavedTracks(limit, offset) {
         "limit": limit,
         "offset": offset
     }).then(function (data) {
-        if ((offset + limit) < (data.total)) { 
+        if ((offset + limit) < (data.total)) {
             //There are more tracks
+            for (let i = offset; i < data.total; i + limit) {
+                spotifyApi.getMySavedTracks({
+                    "limit": limit,
+                    "offset": i
+                }).then(function(data){
+                    console.log(data);
+                })
+            }
         }
         console.log('User Tracks', data); //first call
     })
-    
+
     return result;
 }
 
@@ -68,7 +76,7 @@ async function getUserIDWrapper() {
 
 async function getUserInformationAndLibrary() {
     //let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved. Convert to for loop?
-    let result1 = await getSavedTracks(50.0)
+    let result1 = await getSavedTracks(50, 0)
     let result2 = await getUserIDWrapper();
     return result2;
 }
