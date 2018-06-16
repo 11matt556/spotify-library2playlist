@@ -24,3 +24,10 @@ spotifyApi.getUserPlaylists()  // note that we don't pass a user id
   }, function(err) {
     console.error(err);
   });
+
+spotifyApi.getMySavedTracks()
+    .then(function(data) {
+    console.log('User Tracks', data);
+  }, function(err) {
+    console.error(err);
+  });
