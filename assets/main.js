@@ -26,7 +26,7 @@ async function getSavedTracksNext(limit,offset) {
         .then(function (data) {
             console.log('User Tracks', data);
             if( (offset + limit) < (data.total) ){
-                getSavedTracksNext(limit,(offset+limit)).then(function(data))
+                getSavedTracksNext(limit,(offset+limit))
             }
 
         }, function (err) {
