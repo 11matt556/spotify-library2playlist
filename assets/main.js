@@ -36,8 +36,11 @@ async function getSavedTracksWrapper(limit, offset) {
 
 getSavedTracksWrapper(50, 0);
 
+var userID = null
 spotifyApi.getMe().then(function (data) {
-    console.log('UserID', data);
+    console.log('User Data', data);
+    userID = data.id;
+    console.log('UserID', userID);
 }, function (err) {
     console.error(err)
 })
