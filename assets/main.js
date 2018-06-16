@@ -27,6 +27,9 @@ async function getSavedTracksWrapper(limit, offset) {
             console.log('User Tracks', data);
             if ((offset + limit) < (data.total)) {
                 getSavedTracksWrapper(limit, (offset + limit))
+            } else {
+                //Finished loading tracks
+
             }
 
         }, function (err) {
@@ -34,13 +37,22 @@ async function getSavedTracksWrapper(limit, offset) {
         });
 }
 
-getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
+async function getUserInformationAndLibrary() {
+    getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
+    getUserIDWrapper();
+}
 
-var userID = null
-spotifyApi.getMe().then(function (data) {
-    console.log('User Data', data);
-    userID = data.id;
-    console.log('UserID', userID);
-}, function (err) {
-    console.error(err)
-})
+async function getUserIDWrapper() {
+    var userID = null
+    spotifyApi.getMe().then(function (data) {
+        console.log('User Data', data);
+        userID = data.id;
+        console.log('UserID', userID);
+    }, function (err) {
+        console.error(err)
+    })
+}
+
+getUserInformationAndLibrary().then(function(){
+    console.log("Did the things");
+});
