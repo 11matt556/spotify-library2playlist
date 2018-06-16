@@ -40,7 +40,7 @@ async function getSavedTracksWrapper(limit, offset) {
 }
 
 async function getSavedTracks(limit, offset) {
-    let result = spotifyApi.getMySavedTracks({
+    spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
     }).then(function (data) {
@@ -50,19 +50,20 @@ async function getSavedTracks(limit, offset) {
            //There are more tracks
             
         }*/
-
+        var result;
         while ((offset + limit) < (data.total)) {
             offset = offset + limit;
-            spotifyApi.getMySavedTracks({
+            result = spotifyApi.getMySavedTracks({
                 "limit": limit,
                 "offset": offset
             }).then(function (data2) {
                 console.log('User Tracks', data2); //later calls
             })
+            
+            return result;
         }
     })
-    console.log(result)
-    return result;
+    //console.log(result)
 }
 
 async function getUserIDWrapper() {
