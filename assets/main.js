@@ -38,8 +38,9 @@ async function getSavedTracksWrapper(limit, offset) {
 }
 
 async function getUserInformationAndLibrary() {
-    await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
-    await getUserIDWrapper();
+let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved
+let result2 = await getUserIDWrapper();
+    return result2;
 }
 
 async function getUserIDWrapper() {
