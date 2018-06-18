@@ -56,7 +56,7 @@ async function getSavedTracks(limit, offset) {
             promises.push(res);
         }
         
-        $q.all(promises).then(function(dataf){
+        Promise.all(promises).then(function(dataf){
             console.log("all promises",dataf)
         })
         
