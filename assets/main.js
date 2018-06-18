@@ -48,7 +48,7 @@ async function getSavedTracks(limit, offset, total) {
     //return Promise.all(promises);
     return promises;
 }
-
+/*
 getSavedTrack(50, 0).then(function (data) {
     console.log(data);
     var moreData = getSavedTracks(50, data.offset, data.total);
@@ -57,6 +57,7 @@ getSavedTrack(50, 0).then(function (data) {
         console.log(d);
     })
 })
+*/
 
 async function getAllTracks() {
     let track = await getSavedTrack(50, 0);
