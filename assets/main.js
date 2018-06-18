@@ -104,6 +104,8 @@ async function getUserIDWrapper() {
     return result;
 }
 
+
+
 async function getUserInformationAndLibrary() {
     //let result1 = await getSavedTracksWrapper(50, 0); //TODO: Currently cannot determine when tracks are finished being retrieved. Convert to for loop?
     let result1 = await getSavedTracks(50, 0)
@@ -112,7 +114,12 @@ async function getUserInformationAndLibrary() {
 }
 
 
-
+/*
 getUserInformationAndLibrary().then(function () {
     console.log("Did the things");
 });
+*/
+
+getSavedTracks(50,0).then(function(){
+    console.log("Did the things");
+})
