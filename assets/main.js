@@ -62,34 +62,7 @@ async function getSavedTracks(limit, offset) {
     })
     console.log("after then");
     console.log(topres);
-    return topres;
-    
-
-    
-    /*
-    spotifyApi.getMySavedTracks({
-        "limit": limit,
-        "offset": offset
-    }).then(function (data) {
-        console.log('User Tracks', data); //first call
-        
-        //var result;
-        while ((offset + limit) < (data.total)) {
-            console.log("while")
-            offset = offset + limit;
-            var result = spotifyApi.getMySavedTracks({
-                "limit": limit,
-                "offset": offset
-            }).then(function (data2) {
-                console.log('User Tracks', data2); //later calls
-            })
-        }
-        console.log("result")
-        return result;
-    })
-    //console.log(result)
-    
-    */
+    //return topres;
 }
 
 async function getUserIDWrapper() {
@@ -121,7 +94,6 @@ getUserInformationAndLibrary().then(function () {
 });
 */
 
-getSavedTracks(50,0).then(function(data){
-    console.log(data);
+getSavedTracks(50,0).then(function(){
     console.log("Did the things");
 })
