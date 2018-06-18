@@ -19,7 +19,7 @@ if (token) {
 let offset = 0;
 
 async function getSavedTrack(limit, offset) {
-    
+
     let result = await spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
@@ -33,12 +33,15 @@ async function getUserIDWrapper() {
     return result;
 }
 
-async function getSavedTracks(limit, offset, total){
+async function getSavedTracks(limit, offset, total) {
     var promises = [];
-    
-    while((offset + limit) < total){
+
+    while ((offset + limit) < total) {
         offset = offset + limit;
-        var res = await spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
+        var res = await spotifyApi.getMySavedTracks({
+            "limit": limit,
+            "offset": offset
+        })
         promises.push(res);
     }
     console.log(promises);
@@ -46,17 +49,20 @@ async function getSavedTracks(limit, offset, total){
     return promises;
 }
 
-getSavedTrack(50,0).then(function(data){
+getSavedTrack(50, 0).then(function (data) {
     console.log(data);
-    var moreData = getSavedTracks(50,data.offset,data.total);
+    var moreData = getSavedTracks(50, data.offset, data.total);
     console.log(moreData);
-    moreData.then(function(d){
+    moreData.then(function (d) {
         console.log(d);
     })
 })
 
-let track = await getSavedTrack(50,0);
-console.log("Track",track)
-let tracks = await getSavedTracks(track.limit,track.offset,track.total)
-console.log("Tracks",tracks)
-    
+async function getAllTracks() {
+    let track = await getSavedTrack(50, 0);
+    console.log("Track", track)
+    let tracks = await getSavedTracks(track.limit, track.offset, track.total)
+    console.log("Tracks", tracks)
+}
+
+getAllTracks();
