@@ -69,6 +69,7 @@ async function getAllTracks() {
         results.push(tracks[i]);
     }
     console.log("Tracks", tracks)
+    return results;
 }
 
 var tracks = getAllTracks();
