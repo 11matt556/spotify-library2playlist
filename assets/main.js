@@ -42,7 +42,7 @@ async function getSavedTracksWrapper(limit, offset) {
 async function getSavedTracks(limit, offset) {
     var resData = [];
     
-    spotifyApi.getMySavedTracks({
+    var test = spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
     }).then(function (data) { //First request completed so now we know how many songs user has
