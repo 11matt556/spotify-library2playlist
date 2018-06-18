@@ -62,11 +62,12 @@ async function getSavedTracks(limit, offset) {
         Promise.all(promises).then(function(dataf){
             console.log("all promises",dataf)
             resData.push(dataf);
+            return resData
         })
     })
     console.log("after then");
     //return topres;
-    return resData;
+    //return resData;
 }
 
 async function getUserIDWrapper() {
