@@ -47,6 +47,6 @@ async function getSavedTracks(limit, offset, total){
 
 getSavedTrack(50,0).then(function(data){
     console.log(data);
-    var moreData = getSavedTracks(50,data.offset,data.limit);
+    var moreData = getSavedTracks(50,data.offset,data.total);
     console.log(moreData);
 })
