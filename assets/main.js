@@ -54,3 +54,9 @@ getSavedTrack(50,0).then(function(data){
         console.log(d);
     })
 })
+
+let track = await getSavedTrack(50,0);
+console.log("Track",track)
+let tracks = await getSavedTracks(track.limit,track.offset,track.total)
+console.log("Tracks",tracks)
+    
