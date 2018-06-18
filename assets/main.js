@@ -36,7 +36,7 @@ async function getUserIDWrapper() {
 async function getSavedTracks(limit, offset, total) {//Get multiple sets of tracks up to total, each of size limit
     var promises = [];
 
-    while ((offset + limit) < total) {
+    while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
         offset = offset + limit;
         var res = await spotifyApi.getMySavedTracks({
             "limit": limit,
@@ -73,6 +73,13 @@ async function getAllTracks() {
 }
 
 var tracks = getAllTracks();
+var userID = getUserIDWrapper();
+
+var promises = [tracks,userID];
+Promise.all(promises).then(function(data){
+    console.log(data);
+})
+
 //Get user id
 //Put both in array
 //promise.all(array).then(do playlist stuff with user id and tracks)
