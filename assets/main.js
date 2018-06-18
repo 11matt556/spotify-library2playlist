@@ -65,7 +65,6 @@ async function getSavedTracks(limit, offset) {
         })
     })
     console.log("after then");
-    console.log(topres);
     //return topres;
     return resData;
 }
