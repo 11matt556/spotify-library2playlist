@@ -41,9 +41,8 @@ async function getSavedTracksWrapper(limit, offset) {
 
 async function getSavedTracks(limit, offset) {
     var resData = [];
-    var promises = [];
     
-    spotifyApi.getMySavedTracks({
+    var test = spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
     }).then(function (data) { //First request completed so now we know how many songs user has
@@ -51,19 +50,19 @@ async function getSavedTracks(limit, offset) {
         console.log("first ",data)
         resData.push(data);
 
-        //var promises = [];
+        var promises = [];
         
         while((offset + limit) < (data.total)){
             console.log("then while");
             offset = offset + limit;
             var res = spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
             promises.push(res);
-        }
+        } //After while loop code is exiting this function and not waiting on Promise.all
         
-        Promise.all(promises).then(function(dataf){
+       await Promise.all(promises).then(function(dataf){
             console.log("all promises",dataf)
             resData.push(dataf);
-            console.log("resData",resData);
+            console.log("resData",resData)
             //return resData
         })
         
@@ -71,7 +70,7 @@ async function getSavedTracks(limit, offset) {
     console.log("after then");
     //return topres;
     //return resData;
-    return promises;
+    return test;
 }
 
 async function getUserIDWrapper() {
