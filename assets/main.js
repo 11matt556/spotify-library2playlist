@@ -34,19 +34,22 @@ async function getUserIDWrapper() {
 }
 
 async function getSavedTracks(limit, offset, total){
-    var promises = await [];
+    var promises = [];
     
     while((offset + limit) < total){
         offset = offset + limit;
-        var res = spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
+        var res = await spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
         promises.push(res);
     }
     console.log(promises);
-    return promises;
+    return Promise.all(promises);
 }
 
 getSavedTrack(50,0).then(function(data){
     console.log(data);
     var moreData = getSavedTracks(50,data.offset,data.total);
     console.log(moreData);
+    moreData.then(function(d){
+        console.log(d);
+    })
 })
