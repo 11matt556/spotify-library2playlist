@@ -34,7 +34,7 @@ async function getUserIDWrapper() {
 }
 
 async function getSavedTracks(limit, offset, total){
-    var promises = [];
+    var promises = await [];
     
     while((offset + limit) < total){
         offset = offset + limit;
@@ -42,7 +42,7 @@ async function getSavedTracks(limit, offset, total){
         promises.push(res);
     }
     
-    return Promise.all(promises);
+    return promises;
 }
 
 getSavedTrack(50,0).then(function(data){
