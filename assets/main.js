@@ -6,6 +6,7 @@ https://accounts.spotify.com/en/authorize?client_id=b1aa5dbffa494726880c00c39552
 
 const spotifyApi = new SpotifyWebApi()
 
+//TODO: Put into function
 token = window.location.hash
 token = token.substring(14) //Trim off "#access_token="
 if (token) {
@@ -16,9 +17,8 @@ if (token) {
     console.log("Please auth")
 }
 
-let offset = 0;
-
-async function getSavedTrack(limit, offset) {//Get single set of tracks of size limit
+//Get single set of tracks of size limit
+async function getSavedTrack(limit, offset) { 
 
     let result = await spotifyApi.getMySavedTracks({
         "limit": limit,
@@ -28,12 +28,8 @@ async function getSavedTrack(limit, offset) {//Get single set of tracks of size 
     return result;
 }
 
-async function getUserIDWrapper() {
-    let result = await spotifyApi.getMe()
-    return result;
-}
-
-async function getSavedTracks(limit, offset, total) {//Get multiple sets of tracks up to total, each of size limit
+//Get multiple sets of tracks up to total, each of size limit
+async function getSavedTracks(limit, offset, total) { 
     var promises = [];
 
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
@@ -45,38 +41,21 @@ async function getSavedTracks(limit, offset, total) {//Get multiple sets of trac
         promises.push(res);
     }
     console.log(promises);
-    return Promise.all(promises);
-    //return promises;
+    return Promise.all(promises); //Might not be needed
 }
-/*
-getSavedTrack(50, 0).then(function (data) {
-    console.log(data);
-    var moreData = getSavedTracks(50, data.offset, data.total);
-    console.log(moreData);
-    moreData.then(function (d) {
-        console.log(d);
-    })
-})
-*/
 
+//Get all user tracks in library
 async function getAllTracks() {
-    let track = await getSavedTrack(50, 0);
-    var results = [];
-    //results.push(track);
-    console.log("Track", track)
-    let tracks = await getSavedTracks(track.limit, track.offset, track.total)
-    for(let i=0;i<tracks.length;i++){
-        results.push(tracks[i]);
-    }
-    console.log("Tracks", tracks)
+    let track = await getSavedTrack(50, 0); //Wait for the first track
+    let tracks = await getSavedTracks(track.limit, track.offset, track.total) //Pass size data from first track to get the rest of the tracks
     return tracks;
 }
 
 var tracks = getAllTracks();
-var userID = getUserIDWrapper();
+var userID = spotifyApi.getMe();
+var promises = [tracks, userID];
 
-var promises = [tracks,userID];
-Promise.all(promises).then(function(data){
+Promise.all(promises).then(function (data) {
     console.log(data);
     //TODO: Create playlist and put songs in it
     //Note: Since userID is in promises[1], user info should be in data[1]
