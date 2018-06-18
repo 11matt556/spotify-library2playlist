@@ -73,4 +73,7 @@ async function getAllTracks() {
 }
 
 var tracks = getAllTracks();
-console.log(tracks);
+//Get user id
+//Put both in array
+//promise.all(array).then(do playlist stuff with user id and tracks)
+//console.log(tracks);
