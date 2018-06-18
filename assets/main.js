@@ -44,11 +44,7 @@ async function getSavedTrack(limit, offset) {
     let result = await spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
-    }).then(function (data) { //First request completed so now we know how many songs user has
-        console.log("in then");
-        console.log("Track",data)
-        
-    })
+    });
     console.log("after then");
     return result;
 }
