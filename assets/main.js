@@ -78,9 +78,6 @@ var userID = getUserIDWrapper();
 var promises = [tracks,userID];
 Promise.all(promises).then(function(data){
     console.log(data);
+    //TODO: Create playlist and put songs in it
+    //Note: Since userID is in promises[1], user info should be in data[1]
 })
-
-//Get user id
-//Put both in array
-//promise.all(array).then(do playlist stuff with user id and tracks)
-//console.log(tracks);
