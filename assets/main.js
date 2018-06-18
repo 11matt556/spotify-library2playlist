@@ -40,7 +40,7 @@ async function getSavedTracksWrapper(limit, offset) {
 }
 
 async function getSavedTracks(limit, offset) {
-    spotifyApi.getMySavedTracks({
+    var topres = spotifyApi.getMySavedTracks({
         "limit": limit,
         "offset": offset
     }).then(function (data) { //First request completed so now we know how many songs user has
@@ -59,11 +59,12 @@ async function getSavedTracks(limit, offset) {
         Promise.all(promises).then(function(dataf){
             console.log("all promises",dataf)
         })
-        
-        
     })
-    
     console.log("after then");
+    console.log(topres);
+    return topres;
+    
+
     
     /*
     spotifyApi.getMySavedTracks({
@@ -120,6 +121,7 @@ getUserInformationAndLibrary().then(function () {
 });
 */
 
-getSavedTracks(50,0).then(function(){
+getSavedTracks(50,0).then(function(data){
+    console.log(data);
     console.log("Did the things");
 })
