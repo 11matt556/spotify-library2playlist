@@ -38,10 +38,10 @@ async function getSavedTracks(limit, offset, total){
     
     while((offset + limit) < total){
         offset = offset + limit;
-        var res = await spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
+        var res = spotifyApi.getMySavedTracks({"limit":limit,"offset":offset})
         promises.push(res);
     }
-    
+    console.log(promises);
     return promises;
 }
 
