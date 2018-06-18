@@ -61,6 +61,8 @@ getSavedTrack(50, 0).then(function (data) {
 
 async function getAllTracks() {
     let track = await getSavedTrack(50, 0);
+    var results = [];
+    //results.push(track);
     console.log("Track", track)
     let tracks = await getSavedTracks(track.limit, track.offset, track.total)
     for(let i=0;i<tracks.length;i++){
