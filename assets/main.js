@@ -62,8 +62,8 @@ Promise.all(promises).then(function (data) {
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
         console.log(result);
         var playlistExists = false
-        for (var i in result.items) {
-            if (i.name == 'TestPlaylist') {
+        for (var i=0;i<result.items.length;i++) {
+            if (result.items[i].name == 'TestPlaylist') {
                 playlistExists = true
             }
         }
