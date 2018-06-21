@@ -18,7 +18,7 @@ if (token) {
 }
 
 //Get single set of tracks of size limit
-async function getSavedTrack(limit, offset) { 
+async function getSavedTrack(limit, offset) {
 
     let result = await spotifyApi.getMySavedTracks({
         "limit": limit,
@@ -28,7 +28,7 @@ async function getSavedTrack(limit, offset) {
 }
 
 //Get multiple sets of tracks up to total, each of size limit
-async function getSavedTracks(limit, offset, total) { 
+async function getSavedTracks(limit, offset, total) {
     var promises = [];
 
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
@@ -55,11 +55,24 @@ var userID = spotifyApi.getMe();
 var promises = [tracks, userID];
 //Finished loading tracks and getting user ID
 Promise.all(promises).then(function (data) {
-    console.log(data);
-    //TODO: Create playlist and put songs in it
-    spotifyApi.getUserPlaylists(data[1].id).then(function(result){
-        console.log(result);
-    })
-    spotifyApi.createPlaylist(data[1].id,{"name":'TestPlaylist'})
     //Note: Since userID is in promises[1], user info should be in data[1]
+    console.log(data);
+    
+    //TODO: Create playlist and put songs in it
+    spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
+        console.log(result);
+        var playlistExists = false
+        for (var i in result.items) {
+            if (i.name == 'TestPlaylist') {
+                playlistExists = true
+            }
+        }
+        if (playlistExists = false) {
+            spotifyApi.createPlaylist(data[1].id, {
+                "name": 'TestPlaylist'
+            })
+        }
+    })
+
+
 })
