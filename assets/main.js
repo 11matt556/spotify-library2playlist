@@ -34,10 +34,7 @@ async function getSavedTracks(limit, offset, total) {
 
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
         offset = offset + limit;
-        var res = await spotifyApi.getMySavedTracks({
-            "limit": limit,
-            "offset": offset
-        })
+        var res = await getSavedTrack(limit,offset);
         promises.push(res);
     }
     console.log(promises);
