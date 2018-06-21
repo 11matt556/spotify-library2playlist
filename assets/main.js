@@ -24,7 +24,6 @@ async function getSavedTrack(limit, offset) {
         "limit": limit,
         "offset": offset
     });
-    console.log("after then");
     return result;
 }
 
@@ -58,5 +57,6 @@ var promises = [tracks, userID];
 Promise.all(promises).then(function (data) {
     console.log(data);
     //TODO: Create playlist and put songs in it
+    spotifyApi.createPlaylist(data[1].id,{"name":'TestPlaylist'})
     //Note: Since userID is in promises[1], user info should be in data[1]
 })
