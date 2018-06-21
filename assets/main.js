@@ -53,10 +53,13 @@ async function getAllTracks() {
 var tracks = getAllTracks();
 var userID = spotifyApi.getMe();
 var promises = [tracks, userID];
-
+//Finished loading tracks and getting user ID
 Promise.all(promises).then(function (data) {
     console.log(data);
     //TODO: Create playlist and put songs in it
+    spotifyApi.getUserPlaylists(data[1].id).then(function(result){
+        console.log(result);
+    })
     spotifyApi.createPlaylist(data[1].id,{"name":'TestPlaylist'})
     //Note: Since userID is in promises[1], user info should be in data[1]
 })
