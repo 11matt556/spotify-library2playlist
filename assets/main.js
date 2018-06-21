@@ -67,7 +67,7 @@ Promise.all(promises).then(function (data) {
                 playlistExists = true
             }
         }
-        if (playlistExists = false) {
+        if (playlistExists == false) {
             spotifyApi.createPlaylist(data[1].id, {
                 "name": 'TestPlaylist'
             })
