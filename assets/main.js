@@ -24,6 +24,7 @@ async function getSavedTrack(limit, offset) {
         "limit": limit,
         "offset": offset
     });
+    console.log("Getting Tracks...",result)
     return result;
 }
 
@@ -57,20 +58,30 @@ var promises = [tracks, userID];
 Promise.all(promises).then(function (data) {
     //Note: Since userID is in promises[1], user info should be in data[1]
     console.log(data);
-    
+
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
+        
         console.log(result);
         var playlistExists = false
-        for (var i=0;i<result.items.length;i++) {
+        console.log("Checking if playlist with this name already exists...")
+        
+        for (var i = 0; i < result.items.length; i++) {
             if (result.items[i].name == 'TestPlaylist') {
                 playlistExists = true
             }
         }
+        
         if (playlistExists == false) {
+            console.log("Playlist does not exist. Creating new playlist...")
             spotifyApi.createPlaylist(data[1].id, {
                 "name": 'TestPlaylist'
+            }).then(function (result) {
+                console.log("Created Playlist")
             })
+        }
+        else{
+            console.log("Playlist already exists");
         }
     })
 
