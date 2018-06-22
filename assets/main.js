@@ -64,9 +64,9 @@ async function getSavedTracks(limit, offset, total) {
 
 //Get all user tracks in library
 async function getAllTracks() {
-    //TODO: Missing first set tracks
     let track = await getSavedTrack(50, 0); //Wait for the first track
     let tracks = await getSavedTracks(track.limit, track.offset, track.total) //Pass size data from first track to get the rest of the tracks
+    tracks.push(track);
     return tracks;
 }
 
