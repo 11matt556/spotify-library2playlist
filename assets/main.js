@@ -58,7 +58,7 @@ async function getSavedTracks(limit, offset, total) {
         var res = await getSavedTrack(limit,offset);
         promises.push(res);
     }
-    console.log(promises);
+    //console.log(promises);
     return Promise.all(promises); //Might not be needed
 }
 
@@ -67,16 +67,18 @@ async function getAllTracks() {
     let track = await getSavedTrack(50, 0); //Wait for the first track
     let tracks = await getSavedTracks(track.limit, track.offset, track.total) //Pass size data from first track to get the rest of the tracks
     tracks.push(track);
+    console.log("All Tracks",tracks);
     return tracks;
 }
 
 var tracks = getAllTracks();
 var userID = spotifyApi.getMe();
-var promises = [tracks, userID];
+var playlistPreReqs = [tracks, userID];
+
 //Finished loading tracks and getting user ID
-Promise.all(promises).then(function (data) {
+Promise.all(playlistPreReqs).then(function (data) {
     //Note: Since userID is in promises[1], user info should be in data[1]
-    console.log(data);
+    console.log("Track & User",data);
 
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
@@ -101,7 +103,7 @@ Promise.all(promises).then(function (data) {
             })
         }
         else{
-            console.log("Playlist already exists");
+            console.log("Playlist already exists.");
         }
     })
 })
