@@ -4,6 +4,27 @@ User muist visit this link to authorize:
 https://accounts.spotify.com/en/authorize?client_id=b1aa5dbffa494726880c00c395523fe6&redirect_uri=https:%2F%2Fhowell-info.us%2Fprojects%2Fspotify-library2playlist%2Findex.html&response_type=token&scope=user-library-read%20playlist-modify-public%20playlist-modify-private
 */
 
+/*TODO: 
+
+FEATURES: 
+
+Display songs in library (excluding playlists)
+Display songs from all sources (user playlists, followed, library)
+Sort by any song meta-data (Genre, Artist, Name, BPM, etc)
+Select multiple songs and add to a new playlist
+Filter by playlist, genre, decades *** Add more later (bpm, date added, style, mood, popularity) ***
+
+-------------------------------------------------------
+Add songs to existing playlist
+Can view all sub-genres of song, not just the top-genre
+Play songs in Spotify player, not preview.
+
+Plot for song metadata
+Display information about most listened to song
+Pie chart for top-genre & sub-genre distribution *** Might be very hard ***
+Pie charts for popularity, style, mood, decade
+
+*/
 const spotifyApi = new SpotifyWebApi()
 
 //TODO: Put into function
@@ -43,6 +64,7 @@ async function getSavedTracks(limit, offset, total) {
 
 //Get all user tracks in library
 async function getAllTracks() {
+    //TODO: Missing first set tracks
     let track = await getSavedTrack(50, 0); //Wait for the first track
     let tracks = await getSavedTracks(track.limit, track.offset, track.total) //Pass size data from first track to get the rest of the tracks
     return tracks;
@@ -75,12 +97,11 @@ Promise.all(promises).then(function (data) {
                 "name": 'TestPlaylist'
             }).then(function (result) {
                 console.log("Created Playlist")
+                //Now put songs in it
             })
         }
         else{
             console.log("Playlist already exists");
         }
     })
-
-
 })
