@@ -93,8 +93,9 @@ Promise.all(playlistPreReqs).then(function (data) {
     
     //TODO: Display tracks in a table
     for(let i=0;i<data[0].length;i++){
-        console.log("Data",data[0][i]);
-        $("#table-body").append("<tr><td>" + data[0][i] + "</td></tr>")
+        for(let j=0;j<data[0][i].items.length;j++){
+            $("#table-body").append("<tr><td>" + data[0][i].items[j] + "</td></tr>")
+        }
     }
 
     //TODO: Create playlist and put songs in it
@@ -124,3 +125,8 @@ Promise.all(playlistPreReqs).then(function (data) {
         }
     })
 })
+
+//Initialize datatables
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
