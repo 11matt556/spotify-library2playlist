@@ -54,21 +54,20 @@ async function getSavedTrack(limit, offset) {
     return result;
 }
 
-//Get multiple sets of tracks up to total, each of size limit
+//Get multiple sets of tracks
 async function getSavedTracks(limit, offset) {
     var promises = [];
 
     //Get first track
-    var track1 = await getSavedTrack(50,0);
-    console.log("track1",track1);
-    var total = track1.total;
-    promises.push(track1);
+    var track = await getSavedTrack(50,0);
+    var total = track.total;
+    promises.push(track);
 
     //Get rest of tracks
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
         offset = offset + limit;
-        var res = await getSavedTrack(limit,offset);
-        promises.push(res);
+        track = await getSavedTrack(limit,offset);
+        promises.push(track);
     }
     //console.log(promises);
     return Promise.all(promises); //Might not be needed
@@ -87,10 +86,12 @@ var tracks = getAllTracks();
 var userID = spotifyApi.getMe();
 var playlistPreReqs = [tracks, userID];
 
-//Finished loading tracks and getting user ID
+//Finished loading tracks and getting user ID. Now time to do everything else.
 Promise.all(playlistPreReqs).then(function (data) {
     //Note: Since userID is in promises[1], user info should be in data[1]
     console.log("Track & User",data);
+    
+    //TODO: Display tracks in a table
 
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
