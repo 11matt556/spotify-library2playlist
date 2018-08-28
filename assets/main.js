@@ -1,9 +1,14 @@
 /*
 //Implicit Grant
 User muist visit this link to authorize:
-https://accounts.spotify.com/en/authorize?client_id=b1aa5dbffa494726880c00c395523fe6&redirect_uri=https:%2F%2Fhowell-info.us%2Fprojects%2Fspotify-library2playlist%2Findex.html&response_type=token&scope=user-library-read%20playlist-modify-public%20playlist-modify-private
+https://accounts.spotify.com/en/authorize?client_id=b1aa5dbffa494726880c00c395523fe6&redirect_uri=http:%2F%2Fhowell-info.us%2Fprojects%2Fspotify-library2playlist%2Findex.html&response_type=token&scope=user-library-read%20playlist-modify-public%20playlist-modify-private
 */
 
+/*
+Libraries Used:
+Spotify-web-api-js
+jQuery 3.3.1
+*/
 /*TODO: 
 
 FEATURES: 
