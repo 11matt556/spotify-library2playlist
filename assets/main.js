@@ -91,10 +91,12 @@ Promise.all(playlistPreReqs).then(function (data) {
     //Note: Since userID is in promises[1], user info should be in data[1]
     console.log("Track & User",data);
     
-    //TODO: Display tracks in a table
+    //TODO: Put into separate function to handle differences
+    //TODO: Convert to templates for readability
     for(let i=0;i<data[0].length;i++){
         for(let j=0;j<data[0][i].items.length;j++){
-            $("#table-body").append("<tr>" + "<td>" + data[0][i].items[j].track.artist + "</td>" + "<td>" + data[0][i].items[j].track.name + "</td>" + "</tr>")
+            //TODO: Handle multiple artists
+            $("#table-body").append("<tr>" + "<td>" + data[0][i].items[j].track.artists[0].name + "</td>" + "<td>" + data[0][i].items[j].track.name + "</td>" + "</tr>")
         }
     }
     
