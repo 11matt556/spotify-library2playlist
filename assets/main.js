@@ -93,7 +93,8 @@ Promise.all(playlistPreReqs).then(function (data) {
     
     //TODO: Display tracks in a table
     for(let i=0;i<data[0].length;i++){
-        $("table-body").append("<tr><td>" + data[0][i] + "</td></tr>")
+        console.log("Data",data[0][i]);
+        $("#table-body").append("<tr><td>" + data[0][i] + "</td></tr>")
     }
 
     //TODO: Create playlist and put songs in it
