@@ -94,9 +94,11 @@ Promise.all(playlistPreReqs).then(function (data) {
     //TODO: Display tracks in a table
     for(let i=0;i<data[0].length;i++){
         for(let j=0;j<data[0][i].items.length;j++){
-            $("#table-body").append("<tr><td>" + data[0][i].items[j] + "</td></tr>")
+            $("#table-body").append("<tr><td>" + data[0][i].items[j].track.name + "</td></tr>")
         }
     }
+    
+    $('#table_id').DataTable();
 
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
@@ -125,8 +127,9 @@ Promise.all(playlistPreReqs).then(function (data) {
         }
     })
 })
-
+/*
 //Initialize datatables
 $(document).ready( function () {
     $('#table_id').DataTable();
 } );
+*/
