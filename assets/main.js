@@ -92,6 +92,9 @@ Promise.all(playlistPreReqs).then(function (data) {
     console.log("Track & User",data);
     
     //TODO: Display tracks in a table
+    for(let i=0;i<data[0].length;i++){
+        $("table-body").append("<tr><td>" + data[0][i] + "</td></tr>")
+    }
 
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
