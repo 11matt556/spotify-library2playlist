@@ -55,8 +55,13 @@ async function getSavedTrack(limit, offset) {
 }
 
 //Get multiple sets of tracks up to total, each of size limit
-async function getSavedTracks(limit, offset, total) {
+async function getSavedTracks(limit, offset) {
     var promises = [];
+
+    var track1 = await getSavedTrack(50,0);
+    console.log("track1",track1);
+    var total = track1.total;
+    promises.push(track1);
 
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
         offset = offset + limit;
@@ -69,9 +74,9 @@ async function getSavedTracks(limit, offset, total) {
 
 //Get all user tracks in library
 async function getAllTracks() {
-    let track = await getSavedTrack(50, 0); //Wait for the first track
-    let tracks = await getSavedTracks(track.limit, track.offset, track.total) //Pass size data from first track to get the rest of the tracks
-    tracks.push(track);
+    //let track = await getSavedTrack(50, 0); //Wait for the first track
+    let tracks = await getSavedTracks(track.limit, track.offset) //Pass size data from first track to get the rest of the tracks
+    //tracks.push(track);
     console.log("All Tracks",tracks);
     return tracks;
 }
