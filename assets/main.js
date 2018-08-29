@@ -73,15 +73,6 @@ async function getSavedTracks(limit, offset) {
     return Promise.all(promises); //Might not be needed
 }
 
-//Initialize datatables
-$(document).ready(function () {
-    $('#table_id').DataTable({
-        "paging": false,
-        "fixedHeader": true,
-        "autoWidth": false
-    });
-});
-
 //Get all user tracks in library
 async function getAllTracks() {
     //let track = await getSavedTrack(50, 0); //Wait for the first track
@@ -109,6 +100,15 @@ Promise.all(playlistPreReqs).then(function (data) {
         }
     }
 
+    //Initialize datatables
+    $(document).ready(function () {
+        $('#table_id').DataTable({
+            "paging": false,
+            "fixedHeader": true,
+            "autoWidth": false
+        });
+    });
+
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
 
@@ -135,5 +135,3 @@ Promise.all(playlistPreReqs).then(function (data) {
         }
     })
 })
-
-
