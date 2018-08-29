@@ -39,8 +39,9 @@ if (token) {
     console.log(token + " success")
     spotifyApi.setAccessToken(token)
 } else {
-    //TODO: Prompt user to auth
+    //TODO: Improve user auth
     console.log("Please auth")
+    alert("Please Auth");
 }
 
 //Get single set of tracks of size limit
