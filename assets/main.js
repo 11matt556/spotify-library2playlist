@@ -50,7 +50,7 @@ async function getSavedTrack(limit, offset) {
         "limit": limit,
         "offset": offset
     });
-    console.log("Getting Tracks...",result)
+    console.log("Getting Tracks...", result)
     return result;
 }
 
@@ -59,14 +59,14 @@ async function getSavedTracks(limit, offset) {
     var promises = [];
 
     //Get first track
-    var track = await getSavedTrack(50,0);
+    var track = await getSavedTrack(50, 0);
     var total = track.total;
     promises.push(track);
 
     //Get rest of tracks
     while ((offset + limit) < total) { //TODO: Batch all requests here to eliminate waterfall effect
         offset = offset + limit;
-        track = await getSavedTrack(limit,offset);
+        track = await getSavedTrack(limit, offset);
         promises.push(track);
     }
     //console.log(promises);
@@ -78,7 +78,7 @@ async function getAllTracks() {
     //let track = await getSavedTrack(50, 0); //Wait for the first track
     let tracks = await getSavedTracks(50, 0) //Pass size data from first track to get the rest of the tracks
     //tracks.push(track);
-    console.log("All Tracks",tracks);
+    console.log("All Tracks", tracks);
     return tracks;
 }
 
@@ -89,32 +89,30 @@ var playlistPreReqs = [tracks, userID];
 //Finished loading tracks and getting user ID. Now time to do everything else.
 Promise.all(playlistPreReqs).then(function (data) {
     //Note: Since userID is in promises[1], user info should be in data[1]
-    console.log("Track & User",data);
-    
+    console.log("Track & User", data);
+
     //TODO: Put into separate function to handle differences
     //TODO: Convert to templates for readability
-    for(let i=0;i<data[0].length;i++){
-        for(let j=0;j<data[0][i].items.length;j++){
+    for (let i = 0; i < data[0].length; i++) {
+        for (let j = 0; j < data[0][i].items.length; j++) {
             //TODO: Handle multiple artists
             $("#table-body").append("<tr>" + "<td>" + data[0][i].items[j].track.artists[0].name + "</td>" + "<td>" + data[0][i].items[j].track.name + "</td>" + "</tr>")
         }
     }
-    
-    $('#table_id').DataTable();
 
     //TODO: Create playlist and put songs in it
     spotifyApi.getUserPlaylists(data[1].id).then(function (result) {
-        
+
         console.log(result);
         var playlistExists = false
         console.log("Checking if playlist with this name already exists...")
-        
+
         for (var i = 0; i < result.items.length; i++) {
             if (result.items[i].name == 'TestPlaylist') {
                 playlistExists = true
             }
         }
-        
+
         if (playlistExists == false) {
             console.log("Playlist does not exist. Creating new playlist...")
             spotifyApi.createPlaylist(data[1].id, {
@@ -123,15 +121,16 @@ Promise.all(playlistPreReqs).then(function (data) {
                 console.log("Created Playlist")
                 //Now put songs in it
             })
-        }
-        else{
+        } else {
             console.log("Playlist already exists.");
         }
     })
 })
-/*
+
 //Initialize datatables
-$(document).ready( function () {
+$(document).ready(function () {
     $('#table_id').DataTable();
-} );
-*/
+    $('#table_id').DataTable({"paging" : false});
+    $('#table_id').DataTable( {fixedHeader: true});
+    $('#table_id').dataTable( {"autoWidth": false});
+});
