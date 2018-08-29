@@ -129,8 +129,9 @@ Promise.all(playlistPreReqs).then(function (data) {
 
 //Initialize datatables
 $(document).ready(function () {
-    $('#table_id').DataTable();
-    $('#table_id').DataTable({"paging" : false});
-    $('#table_id').DataTable( {fixedHeader: true});
-    $('#table_id').dataTable( {"autoWidth": false});
+    $('#table_id').DataTable({
+        "paging": false,
+        "fixedHeader": true,
+        "autoWidth": false
+    });
 });
